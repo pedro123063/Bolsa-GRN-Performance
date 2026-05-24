@@ -132,9 +132,11 @@ class Model:
         )
     
 class ModelWrapper:
+            #simply wraps the model based on our desire of use GRN(5 or 10), ABCD or ECOLI , fowarding the infos the  the right places. Read Model for more deatil.
+            #Returns a Model
     
     @staticmethod
-    def GRN5(train_percentage, excluded_coeffs={}):
+    def GRN5(train_percentage, excluded_coeffs={}): #returns a model for the GRN5
         labels = ['A', 'B', 'C', 'D', 'E']
         datapath = '../../Data/GRN5_DATA.txt'
         
@@ -172,8 +174,14 @@ class ModelWrapper:
         # ind.model.max_data vira um argumento max_data
         # equação é argumento para aumentar eficiencia da função    
         def system(t, y, ind, equation):
-            vals = [Solvers.norm_hardcoded(val, ind.model.max_data[label]) for val, label in zip(y, labels)]
-            dA = equation.full_eq(vals, 'A', 'E')
+            #DIFFERENTIAL EQUATIONS SYSTEM ?
+            
+            vals = [Solvers.norm_hardcoded(val, ind.model.max_data[label]) for val, label in zip(y, labels)] #list of y's after being normalized by the maxValue of their respective label 
+                                                                                                             #(if y[0] is a value for a label[0]==A , it will be normalized by max_val of all values associated with A)
+            #before the for : normalizes each value using the maximum value of their correspondent label
+            #zip : creates tuples (y[index],labels[index])
+            
+            dA = equation.full_eq(vals, 'A', 'E') # differential of A ? differential equation of A ?
             dB = equation.full_eq(vals, 'B', 'A')
             dC = equation.full_eq(vals, 'C', 'B')
             dD = equation.full_eq(vals, 'D', 'C')
