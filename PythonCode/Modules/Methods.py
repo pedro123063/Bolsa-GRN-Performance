@@ -196,7 +196,7 @@ class DE(Method):
         
         def objective_function(params):
             ind = Individual.list_to_ind(params, self.model)
-            ind.calculate_fitness()
+            ind.calculate_fitness(solver=solver,error=error)
             return ind.fitness
     
         result = differential_evolution(

@@ -140,7 +140,7 @@ class ModelWrapper:
         labels = ['A', 'B', 'C', 'D', 'E']
         datapath = '../../Data/GRN5_DATA.txt'
         
-        coeffs = {
+        coeffs = { #dict of dicts of dicts (3 dicts nested)
             'A': {
                 'E': {'n': None, 'k': None, '-': True},
                 'tau': None

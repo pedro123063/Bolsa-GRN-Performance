@@ -1,7 +1,7 @@
 import os
 import time
 import logging
-import multiprocessing as mp
+import multiprocess as mp
 from datetime import datetime
 import pandas as pd
 import pprint
@@ -10,7 +10,7 @@ import numpy as np
 from Modules.Helpers import Helper 
 from Modules.Plotters import Plotter
 import traceback
-
+import dill
 class ExecutionHandler:
     def __init__(self, model, method_class, seeds, solvers, errors, generations, output_path=None, parallel=False, **kwargs):
         self.model = model
@@ -82,6 +82,7 @@ class ExecutionHandler:
             solver,
             error,
          ) for seed, solver, error in tasks]
+        
         results = pool.starmap(static_run_single, args)
         
         pool.close()
@@ -89,9 +90,10 @@ class ExecutionHandler:
         
         self.save_results(results)
 
-    def run_single(self, seed, solver, error):
+    def run_single(self, seed, solver, error): # self is execution handler
+        #
         try:
-            method = self.method_cls(model=self.model, **self.kwargs)
+            method = self.method_cls(model=self.model, **self.kwargs) #mo
             result = method.run(
                 logging=self.logger,
                 filepath=self.run_path,
@@ -133,7 +135,7 @@ class ExecutionHandler:
         df.to_csv(csv_path, index=False)
         self.logger.info(f"Results saved to {csv_path}")
 
-    def execute(self):
+    def execute(self): #self here is ExecutionHandler
         
         self.run_id = f"{self.model.name}_{self.method_name}_{'PARALLEL' if self.parallel else 'SERIAL'}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
         self.logger = self.setup_logger()

@@ -78,8 +78,8 @@ class Individual:
                 initial_conditions,
                 method=solver,
                 t_eval=t_eval,
-                args=(self, self.equation),
-                min_step=0.001
+                args=(self, self.equation)#,
+                #min_step=0.001
             ).y
     
     def ind_to_list(self):
@@ -218,7 +218,7 @@ class Individual:
         return ind.fitness,
     
     @staticmethod
-    def list_to_ind(list_ind, model):
+    def list_to_ind(list_ind, model): # could be costly
         i = 0
         ind = Individual(model=model)
 
