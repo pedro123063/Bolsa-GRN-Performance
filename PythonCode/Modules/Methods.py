@@ -195,6 +195,7 @@ class DE(Method):
     def execute(self, logging, solver, error, seed, gens=5000, verbose=False):
         
         def objective_function(params):
+            print("="*60,f"\n\n{params}\n\n","="*60)
             ind = Individual.list_to_ind(params, self.model)
             ind.calculate_fitness()
             return ind.fitness
