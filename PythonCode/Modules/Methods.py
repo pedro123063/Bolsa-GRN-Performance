@@ -194,10 +194,11 @@ class DE(Method):
 
     def execute(self, logging, solver, error, seed, gens=5000, verbose=False):
         
+        #print(f"\n\n{solver}\n\nmaxitter:{gens} \n\n")
         def objective_function(params):
-            print("="*60,f"\n\n{params}\n\n","="*60)
+            #print("="*60,f"\n\n{params}\n\n","="*60)
             ind = Individual.list_to_ind(params, self.model)
-            ind.calculate_fitness()
+            ind.calculate_fitness(error=error,solver=solver)
             return ind.fitness
     
         result = differential_evolution(

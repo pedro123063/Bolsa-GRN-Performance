@@ -58,8 +58,8 @@ class Individual:
             t_eval = self.model.t_eval
             t_span = self.model.t_span
         
-        
         if solver.upper() == 'ODEINT':
+            #print("!1")
             sol = odeint(
                 self.model.system,
                 # lambda y, t: self.model.system(t, y, self, self.equation),  # Wrap system for odeint (t first)
@@ -72,6 +72,7 @@ class Individual:
             
             return sol.T
         else:
+            #print("!2")
             return integrate.solve_ivp(
                 self.model.system,
                 t_span,
