@@ -24,7 +24,7 @@ class Helper:
     
     @staticmethod
     def load_data(filename, labels):
-        df = pd.read_csv(filename, delim_whitespace=True, header=None, names=['t'] + labels)
+        df = pd.read_csv(filename, sep=r'\s+', header=None, names=['t'] + labels)
         max_data = Helper.max_vals(df, labels)
         return df, max_data
     
