@@ -111,7 +111,9 @@ class Individual:
             data = self.model.original_train
         try:
             y = self.solve_ivp(test=test, solver=solver)
+            #print(f"\n\n y: {y} \n\n")
             self.fitness = Helper.calculate_error(data, y, error)
+            #print(f"\n\n fitness:{self.fitness}  \n\n")
             self.fitness = min(self.fitness, 1e6)
         except:
             # Trata exceções relacionadas ao solver
